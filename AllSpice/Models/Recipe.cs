@@ -1,6 +1,6 @@
 namespace AllSpice.Models
 {
-    public class recipe
+    public class Recipe
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -8,5 +8,7 @@ namespace AllSpice.Models
         public string Img { get; set; }
         public string Category { get; set; }
         public string CreatorId { get; set; }
+
+        public Profile Creator { get; set;}
     }
 }
