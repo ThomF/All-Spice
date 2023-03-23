@@ -22,4 +22,21 @@ public class RecipeRepository
         recipeData.Id = id;
         return recipeData;
     }
+
+    internal List<Recipe> GetAllRecipes()
+    {
+        string sql = @"
+        SELECT 
+        rec.*,
+        act.*
+        FROM recipes rec
+        JOIN accounts act ON rec.creatorId = act.id;
+        ";
+        List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, prof)=> 
+        {
+            recipe.Creator = prof;
+            return recipe;
+        }).ToList();
+        return recipes;
+    }
 }

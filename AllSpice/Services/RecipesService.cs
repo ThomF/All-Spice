@@ -9,9 +9,16 @@ namespace AllSpice.Services;
             _repo = repo;
         }
 
+    internal List<Recipe> GetAllRecipes(string userId)
+    {
+        List<Recipe> recipes = _repo.GetAllRecipes();
+        recipes = recipes.FindAll(r => r.CreatorId == userId);
+        return recipes;
+    }
     internal Recipe CreateRecipe(Recipe recipeData)
     {
         Recipe recipe = _repo.CreateRecipe(recipeData);
         return recipe;
     }
+
 }

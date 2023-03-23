@@ -13,6 +13,21 @@ namespace AllSpice.Controllers;
             _auth = auth;
         }
 
+        [HttpGet]
+        async public Task<ActionResult<List<Recipe>>> FindRecipe()
+        {
+            try 
+            {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            List<Recipe> recipes = _recipesService.GetAllRecipes(userInfo?.Id);
+            return Ok(recipes);
+            }
+            catch (Exception e)
+            {
+            return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize]
         async public Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe recipeData)
