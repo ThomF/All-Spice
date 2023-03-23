@@ -23,6 +23,8 @@ public class RecipeRepository
         return recipeData;
     }
 
+
+
     internal List<Recipe> GetAllRecipes()
     {
         string sql = @"
@@ -57,5 +59,29 @@ public class RecipeRepository
             return recipe;
         }, new { id }).FirstOrDefault();
         return recipe;
+    }
+
+    internal int UpdateRecipe(Recipe update)
+    {
+        string sql = @"
+        UPDATE recipes
+        SET
+        title = @title,
+        instructions = @instructions,
+        img = @img,
+        category = @category
+        WHERE id = @id;
+        ";
+        int rows = _db.Execute(sql, update);
+        return rows;
+    }
+
+    internal bool DeleteRecipe(int id)
+    {
+        string sql = @"
+        DELETE FROM recipes WHERE id = @id;
+        ";
+        int rows = _db.Execute(sql, new {id});
+        return rows == 1;
     }
 }

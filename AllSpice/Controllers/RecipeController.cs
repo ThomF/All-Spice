@@ -33,7 +33,7 @@ namespace AllSpice.Controllers;
             try 
             {
             Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-            Recipe recipe = _recipesService.FindRecipeById(id);
+            Recipe recipe = _recipesService.FindRecipeById(id, userInfo.Id);
             return Ok(recipe);
             }
             catch (Exception e)
@@ -53,6 +53,40 @@ namespace AllSpice.Controllers;
             Recipe recipe = _recipesService.CreateRecipe(recipeData);
             recipe.Creator = userInfo;
             return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+            return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        public async Task<ActionResult<Recipe>> UpdateRecipe(int id, [FromBody] Recipe updateData)
+        {
+            try 
+            {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            
+            Recipe recipe = _recipesService.UpdateRecipe(id, updateData, userInfo);
+            return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+            return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        // NOTE note recipe but string because we are not returning object ut a string of confirmation
+        public async Task<ActionResult<string>> DeleteRecipe(int id)
+        {
+            try 
+            {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            String message = _recipesService.DeleteRecipe(id, userInfo);
+            return Ok(message);
             }
             catch (Exception e)
             {
