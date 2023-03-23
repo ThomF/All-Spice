@@ -27,6 +27,20 @@ namespace AllSpice.Controllers;
             return BadRequest(e.Message);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Recipe>> FindRecipeById(int id)
+        {
+            try 
+            {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            Recipe recipe = _recipesService.FindRecipeById(id);
+            return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+            return BadRequest(e.Message);
+            }
+        }
 
         [HttpPost]
         [Authorize]
