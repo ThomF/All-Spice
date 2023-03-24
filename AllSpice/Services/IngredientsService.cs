@@ -15,6 +15,14 @@ public class IngredientsService
         return ingredient;
     }
 
+    internal string DeleteIngredient(int recipeId, Account userInfo)
+    {
+        Ingredient ingredient = _repo.FindByIngredient(recipeId);
+        bool result = _repo.DeleteIngredient(recipeId);
+        return "deleted";
+
+    }
+
     internal List<Ingredient> FindIngredient(int recipeId)
         {
             List<Ingredient> ingredients = _repo.FindIngredient(recipeId);

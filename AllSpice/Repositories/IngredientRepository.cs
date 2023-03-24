@@ -23,6 +23,27 @@ public class IngredientRepository
         return ingredientData;
     }
 
+    internal bool DeleteIngredient(int recipeId)
+    {
+        string sql = @"
+        DELETE FROM ingredients WHERE id = @recipeId;
+        ";
+        int rows = _db.Execute(sql, new { recipeId });
+        return rows == 1;
+    }
+
+    internal Ingredient FindByIngredient(int recipeId)
+    {
+        string sql = @"
+        SELECT 
+        ing.*
+        FROM ingredients ing
+        WHERE ing.id = @recipeId;
+        ";
+        Ingredient ingredient = _db.Query<Ingredient>(sql, new {recipeId}).FirstOrDefault();
+        return ingredient;
+    }
+
     internal List<Ingredient> FindIngredient(int recipeId)
         {
             string sql = @"
