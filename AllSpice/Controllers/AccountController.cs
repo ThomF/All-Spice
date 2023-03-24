@@ -5,11 +5,13 @@ namespace AllSpice.Controllers;
 public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
+  private readonly FavoritesService _favoritesService;
   private readonly Auth0Provider _auth0Provider;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider)
+  public AccountController(AccountService accountService, FavoritesService favoritesService ,Auth0Provider auth0Provider)
   {
     _accountService = accountService;
+    _favoritesService = favoritesService;
     _auth0Provider = auth0Provider;
   }
 
@@ -27,4 +29,20 @@ public class AccountController : ControllerBase
       return BadRequest(e.Message);
     }
   }
+
+  [HttpGet("favorites")]
+    [Authorize]
+    public async Task<ActionResult<FavoriteRecipe>> GetMyFavorites()
+    {
+      try 
+      {
+        Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+        List<FavoriteRecipe> favoriteRecipes = _favoritesService.GetMyFavorites(userInfo.Id);
+        return Ok(favoriteRecipes);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 }
