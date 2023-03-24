@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
 namespace AllSpice.Controllers
 {
     [ApiController]
@@ -11,5 +5,35 @@ namespace AllSpice.Controllers
     public class FavoritesController : ControllerBase
     {
         
+        private readonly FavoritesService _favoritesService;
+
+        private readonly Auth0Provider _auth;
+        public FavoritesController(FavoritesService favoritesService, Auth0Provider auth)
+        {
+            _favoritesService = favoritesService;
+            _auth = auth;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<Favorite>> createFavorite([FromBody] Favorite favoriteData)
+        {
+            try 
+            {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            favoriteData.AccountId = userInfo.Id;
+            Favorite favorite = _favoritesService.CreateFavorite(favoriteData);
+            return Ok(favorite);
+            }
+            catch (Exception e)
+            {
+            return BadRequest(e.Message);
+            }
+        }
+
+
+
+
+
     }
 }
