@@ -23,6 +23,8 @@ namespace AllSpice.Repositories
             return favoriteData;
         }
 
+        
+
         internal List<FavoriteRecipe> GetMyFavorites(string accountId)
         {
             string sql = @"
@@ -43,5 +45,26 @@ namespace AllSpice.Repositories
             }, new {accountId}).ToList();
             return favoriteRecipes;
         }
+
+        internal void DeleteFavorite(int id)
+        {
+            string sql =@"
+            DELETE FROM favorites
+            WHERE id = @id
+            ";
+            _db.Execute(sql, new {id});
+        }
+
+        internal Favorite getFav(int id)
+        {
+            string sql =@"
+            SELECT
+            *
+            FROM favorites
+            WHERE id = @id;
+            ";
+            Favorite favorite = _db.Query<Favorite>(sql, new {id}).FirstOrDefault();
+            return favorite;
+        } 
     }
 }

@@ -31,6 +31,22 @@ namespace AllSpice.Controllers
             }
         }
 
+    [HttpDelete("{id}")]
+    [Authorize]
+
+    public async Task<ActionResult<string>> DeleteFavorite(int id)
+    {
+        try 
+        {
+        Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+        string message = _favoritesService.DeleteFavorite(id, userInfo.Id);
+        return Ok(message);
+        }
+        catch (Exception e)
+        {
+        return BadRequest(e.Message);
+        }
+    }
 
 
 
