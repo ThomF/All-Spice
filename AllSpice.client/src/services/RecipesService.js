@@ -2,6 +2,7 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 import { Recipe } from "../models/Recipe"
+import { applyStyles } from "@popperjs/core"
 class RecipesService {
     async getRecipes() {
         const res = await api.get('api/recipes')
@@ -14,6 +15,12 @@ class RecipesService {
 
     setActiveRecipe(recipe) {
         AppState.recipe = recipe
+    }
+
+    async createRecipe(recipeData) {
+        const res = await api.post('api/recipes', recipeData)
+        logger.log(res.data)
+        AppState.recipes.push(res.data)
     }
 }
 export const recipesService = new RecipesService()
