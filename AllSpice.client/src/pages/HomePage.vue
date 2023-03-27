@@ -1,11 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-4" v-for="r in recipes">
+      <div class="col-md-4" v-for="r in recipes">
         <Recipe :recipe="r" />
       </div>
     </div>
   </div>
+  <Modal id="create-recipe">
+    <RecipeForm />
+  </Modal>
+  <Modal id="thisRecipe">
+    <ThisRecipe />
+  </Modal>
 </template>
 
 <script>

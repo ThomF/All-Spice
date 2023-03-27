@@ -1,16 +1,9 @@
 <template>
-    <div class="card">
+    <div @click="setActiveRecipe()" class="card" data-bs-toggle="modal" data-bs-target="#thisRecipe">
+        <img class="img-fluid" :src="recipe.img" alt="{{ recipe.title }}">
         <div class="card-body">
-            <div class="img-fluid">
-                <img :src="recipe.img" alt="{{ recipe.title }}">
-            </div>
             <div>
                 <h2>{{ recipe.title }}</h2>
-                <div>
-                    <p>
-                        {{ recipe.instructions }}
-                    </p>
-                </div>
             </div>
         </div>
     </div>
@@ -19,13 +12,18 @@
 
 <script>
 import { Recipe } from '../models/Recipe.js'
+import { recipesService } from '../services/RecipesService';
 
 export default {
     props: {
         recipe: { type: Recipe, required: true }
     },
-    setup() {
-        return {}
+    setup(props) {
+        return {
+            setActiveRecipe() {
+                recipesService.setActiveRecipe(props.recipe)
+            }
+        }
     }
 }
 </script>
