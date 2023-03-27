@@ -1,5 +1,6 @@
 <template>
     <div v-if="recipe">
+        <h1>{{ recipe.title }}</h1>
         <div class="card">
             <img class="img-fluid" :src="recipe.img" alt="">
             <div class="card-body">
