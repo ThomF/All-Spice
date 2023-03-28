@@ -11,6 +11,8 @@
 
 
 <script>
+import { computed } from 'vue';
+import { Account } from '../models/Account';
 import { Recipe } from '../models/Recipe.js'
 import { recipesService } from '../services/RecipesService';
 
@@ -20,9 +22,11 @@ export default {
     },
     setup(props) {
         return {
+            account: computed(() => AppState.account),
             setActiveRecipe() {
                 recipesService.setActiveRecipe(props.recipe)
-            }
+            },
+
         }
     }
 }

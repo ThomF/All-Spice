@@ -5,8 +5,14 @@
   <main>
     <router-view />
   </main>
-  <footer class="bg-dark text-light">
-    T H O M A S
+  <footer class="text-light sticky-bottom pb-5 ">
+    <div class="d-flex flex-end">
+      <button type="button" class="btn btn-primary btn-lg add-btn " data-bs-toggle="modal"
+        data-bs-target="#create-recipe">
+        <i class="mdi mdi-plus fs-5 "></i>
+      </button>
+    </div>
+
   </footer>
 </template>
 
@@ -36,5 +42,9 @@ footer {
   display: grid;
   place-content: center;
   height: 32px;
+}
+
+.add-btn {
+  border-radius: 40%;
 }
 </style>

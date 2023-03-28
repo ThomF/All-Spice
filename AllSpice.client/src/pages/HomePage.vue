@@ -1,9 +1,22 @@
 <template>
+  <!-- <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card elevation-5  banner-height">
+
+          <img class="banner-img"
+            src="https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-scaled.jpg?ssl=1"
+            alt="">
+        </div>
+      </div>
+    </div>
+  </div> -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-4" v-for="r in recipes">
         <Recipe :recipe="r" />
       </div>
+
     </div>
   </div>
   <Modal id="create-recipe">
@@ -19,6 +32,7 @@ import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { recipesService } from '../services/RecipesService'
 import { logger } from '../utils/Logger'
+// import Login from '../Login.vue'
 import Pop from '../utils/Pop'
 export default {
   setup() {
@@ -34,9 +48,8 @@ export default {
     })
     return {
       recipes: computed(() => AppState.recipes)
-
     }
-  }
+  },
 }
 </script>
 
@@ -59,5 +72,15 @@ export default {
       object-position: center;
     }
   }
+}
+
+.banner-img {
+  background-image: url(https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-scaled.jpg?ssl=1);
+  object-fit: cover;
+  height: 25em;
+}
+
+.banner-height {
+  margin: 20px;
 }
 </style>

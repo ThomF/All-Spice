@@ -2,7 +2,6 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 import { Recipe } from "../models/Recipe"
-import { applyStyles } from "@popperjs/core"
 class RecipesService {
     async getRecipes() {
         const res = await api.get('api/recipes')
@@ -22,5 +21,13 @@ class RecipesService {
         logger.log(res.data)
         AppState.recipes.push(res.data)
     }
+
+
+    async favoriteRecipe(recipeId) {
+        const res = await api.post('api/favorites', { recipeId })
+        logger.log("[Favorite the recipe]", res.data)
+        // AppState.favorites.push
+    }
+
 }
 export const recipesService = new RecipesService()
