@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import { recipesService } from '../services/RecipesService'
 import { logger } from '../utils/Logger'
@@ -43,8 +43,20 @@ export default {
         Pop.error(error.message)
       }
     }
+    async function getFavoriteRecipes() {
+      try {
+        await recipesService.getFavoriteRecipes()
+      } catch (error) {
+        Pop.error(error.message)
+      }
+    }
     onMounted(() => {
       getRecipes()
+    })
+    watchEffect(() => {
+      if (AppState.account.id) {
+        getFavoriteRecipes()
+      }
     })
     return {
       recipes: computed(() => AppState.recipes)

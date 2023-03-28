@@ -1,5 +1,6 @@
 export class Recipe {
     constructor(data) {
+        this.favoriteId = data.favoriteId || 0
         this.id = data.id
         this.creatorId = data.creatorId
         this.title = data.title

@@ -29,5 +29,11 @@ class RecipesService {
         // AppState.favorites.push
     }
 
+    async getFavoriteRecipes() {
+        const res = await api.get('account/favorites')
+        logger.log(res.data, '[Account Favorites]')
+        AppState.favorites = res.data.map(f => new Recipe(f))
+    }
+
 }
 export const recipesService = new RecipesService()
