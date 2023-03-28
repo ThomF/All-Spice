@@ -10,7 +10,7 @@
                 <button @click="favoriteRecipe(recipe.id)" class="btn btn-success"><i class="mdi mdi-star"></i></button>
             </div> -->
         </div>
-        <div class="d-flex ps-5 pb-2">
+        <div class="d-flex ps-3 pb-2">
 
             <div class=" elevation-5">
                 <img class="img-fluid tinyIMG" :src="recipe.img" alt="">
