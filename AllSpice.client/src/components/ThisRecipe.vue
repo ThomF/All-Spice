@@ -2,7 +2,13 @@
     <div v-if="recipe">
         <div class="d-flex justify-content-around">
             <h1>{{ recipe.title }}</h1>
-            <button @click="favoriteRecipe(recipe.id)" class="btn btn-success"><i class="mdi mdi-star"></i></button>
+            <div class="pt-2 pb-2">
+                <button @click="favoriteRecipe(recipe.id)" class="btn btn-outline-warning">
+                    <i class="mdi mdi-star fs-4"></i></button>
+            </div>
+            <!-- <div>
+                <button @click="favoriteRecipe(recipe.id)" class="btn btn-success"><i class="mdi mdi-star"></i></button>
+            </div> -->
         </div>
         <div class="d-flex ps-5 pb-2">
 
