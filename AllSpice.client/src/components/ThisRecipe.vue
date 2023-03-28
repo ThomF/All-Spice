@@ -1,18 +1,29 @@
 <template>
     <div v-if="recipe">
-        <h1>{{ recipe.title }}</h1>
-        <div class="card">
-            <button @click="favoriteRecipe(recipe.id)"><i class="mdi mdi-star"></i></button>
+        <div class="d-flex justify-content-around">
+            <h1>{{ recipe.title }}</h1>
+            <button @click="favoriteRecipe(recipe.id)" class="btn btn-success"><i class="mdi mdi-star"></i></button>
+        </div>
+        <div class="d-flex ps-5">
 
-            <img class="img-fluid" :src="recipe.img" alt="">
-            <div class="card-body">
+            <div class=" elevation-5">
+                <img class="img-fluid tinyIMG" :src="recipe.img" alt="">
+            </div>
 
+            <div class="elevation-5 ps-2">
                 <div>
+                    <h3>Instructions</h3>
                     <p>
                         {{ recipe.instructions }}
                     </p>
                 </div>
+                <div>
+                    <h3>Ingredients</h3>
+                    ingredients here
+                </div>
+
             </div>
+
         </div>
 
     </div>
@@ -43,4 +54,10 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tinyIMG {
+    width: 500px;
+    height: 750px;
+    margin: 2em;
+}
+</style>
