@@ -26,13 +26,24 @@ class RecipesService {
     async favoriteRecipe(recipeId) {
         const res = await api.post('api/favorites', { recipeId })
         logger.log("[Favorite the recipe]", res.data)
-        // AppState.favorites.push
+        // AppState.favorites.push(res.data)
+        const recipe = AppState.recipes.find(r => r.id == recipeId)
+        recipe.favoriteId = res.data.id
+
     }
 
     async getFavoriteRecipes() {
         const res = await api.get('account/favorites')
         logger.log(res.data, '[Account Favorites]')
         AppState.favorites = res.data.map(f => new Recipe(f))
+
+        AppState.recipes.forEach(r => {
+            AppState.favorites.forEach(f => {
+                if (r.id == f.id) {
+                    r.favoriteId = f.favoriteId
+                }
+            })
+        })
     }
 
 }

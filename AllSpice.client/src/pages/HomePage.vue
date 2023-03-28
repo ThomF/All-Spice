@@ -59,7 +59,19 @@ export default {
       }
     })
     return {
-      recipes: computed(() => AppState.recipes)
+      recipes: computed(() => {
+        if (!AppState.filter) {
+          let filter = AppState.recipes
+          return filter
+        } else if (AppState.filter == 1) {
+          let filter = AppState.recipes.filter(r => r.creatorId == AppState.account.id)
+          return filter
+        } else {
+          return AppState.recipes.filter(r => r.favoriteId != 0)
+        }
+      })
+
+
     }
   },
 }

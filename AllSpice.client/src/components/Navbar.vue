@@ -28,9 +28,9 @@
     <div class="row">
       <div class="col-4"></div>
       <div class="col-4 buttons">
-        <button class="btn btn-success btn-outline btnHeight">ALL Recipes</button>
-        <button class="btn btn-success btn-outline btnHeight">My Recipes</button>
-        <button class="btn btn-success btn-outline btnHeight">Favorites</button>
+        <button @click="changeFilter(0)" class="btn btn-warning btnHeight">ALL Recipes</button>
+        <button @click="changeFilter(1)" class="btn btn-warning btnHeight">My Recipes</button>
+        <button @click="changeFilter(2)" class="btn btn-warning btnHeight">Favorites</button>
       </div>
       <div class="col-4"></div>
     </div>
@@ -38,10 +38,31 @@
 </template>
 
 <script>
+import { ref, computed } from 'vue';
+import { AppState } from '../AppState';
+import { logger } from '../utils/Logger';
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    const filterRecipe = ref(0)
+    return {
+      // recipes: computed(() => {
+      //   if (!filterRecipe.value) {
+      //     let filter = AppState.recipes
+      //     return filter
+      //   } else if (filterRecipe.value == 1) {
+      //     let filter = AppState.recipes.filter(r => r.creatorId == AppState.account.id)
+      //     return filter
+      //   } else {
+      //     return AppState.recipes.filter(r => r.favoriteId != 0)
+      //   }
+      // }),
+      changeFilter(category) {
+        // filterRecipe.value = category
+        AppState.filter = category
+        logger.log(AppState.filter)
+      }
+    }
   },
   components: { Login }
 }
