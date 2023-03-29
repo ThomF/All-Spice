@@ -27,12 +27,25 @@
   <div class="container">
     <div class="row">
       <div class="col-4"></div>
-      <div class="col-4 buttons">
+      <!-- <div class="col-4 buttons">
         <button @click="changeFilter(0)" class="btn btn-warning btnHeight">ALL Recipes</button>
         <button @click="changeFilter(1)" class="btn btn-warning btnHeight">My Recipes</button>
         <button @click="changeFilter(2)" class="btn btn-warning btnHeight">Favorites</button>
+      </div> -->
+      <div class="col-4 buttons">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" @click="changeFilter(0)" name="options" id="option1" autocomplete="off" checked> Home Page
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" @click="changeFilter(1)" name="options" id="option2" autocomplete="off"> My Recipes
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" @click="changeFilter(2)" name="options" id="option3" autocomplete="off"> My Favorites
+          </label>
+        </div>
       </div>
-      <div class="col-4"></div>
+      <!-- <div class="col-4"></div> -->
     </div>
   </div>
 </template>
@@ -102,6 +115,9 @@ a:hover {
 
 .banner-img {
   background-image: url(https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-scaled.jpg?ssl=1);
+}
 
+input {
+  display: none;
 }
 </style>

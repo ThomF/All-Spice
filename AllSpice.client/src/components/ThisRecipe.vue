@@ -16,7 +16,7 @@
                 <img class="img-fluid tinyIMG" :src="recipe.img" alt="">
             </div>
 
-            <div class="elevation-5 ps-2">
+            <div class="elevation-5 ps-3 pe-3">
                 <div>
                     <h3>Instructions</h3>
                     <p>
@@ -26,7 +26,7 @@
                 <div>
                     <h3>Ingredients</h3>
                     <div v-for="i in ingredients">
-                        <div class="card">
+                        <div class="card elevation-3 pb-2">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <p>{{ i.name }}</p>

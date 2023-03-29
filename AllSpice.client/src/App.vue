@@ -6,7 +6,7 @@
     <router-view />
   </main>
   <footer class="text-light sticky-bottom pb-5 ">
-    <div class="d-flex flex-end">
+    <div class="d-flex justify-content-end">
       <button type="button" class="btn btn-primary btn-lg add-btn " data-bs-toggle="modal"
         data-bs-target="#create-recipe">
         <i class="mdi mdi-plus fs-5 "></i>
