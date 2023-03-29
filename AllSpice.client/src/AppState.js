@@ -9,6 +9,7 @@ export const AppState = reactive({
   recipes: {},
   /** @type {import('./models/Recipe.js').Recipe | Null} */
   recipe: null,
+  editMyRecipe: false,
   /** @type {import('./models/Recipe.js').Recipe[]} */
   myRecipes: {},
   /** @type {import('./models/Favorite.js').Favorite[]} */

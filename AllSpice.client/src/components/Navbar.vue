@@ -37,7 +37,7 @@
           <label class="btn btn-secondary active">
             <input type="radio" @click="changeFilter(0)" name="options" id="option1" autocomplete="off" checked> Home Page
           </label>
-          <label class="btn btn-secondary">
+          <label class="btn btn-primary">
             <input type="radio" @click="changeFilter(1)" name="options" id="option2" autocomplete="off"> My Recipes
           </label>
           <label class="btn btn-secondary">

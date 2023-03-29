@@ -46,6 +46,12 @@ class RecipesService {
         })
     }
 
+    async editRecipe(recipeId, editData) {
+        const res = await api.put(`api/recipes/${recipeId}`, editData)
+        logger.log('edited the recipe', res.data)
+        AppState.recipe.push = new Recipe(res.data)
+    }
+
 
 
 }
