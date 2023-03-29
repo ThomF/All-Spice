@@ -2,8 +2,14 @@
     <div @click="setActiveRecipe(), getIngredients()" class="card" data-bs-toggle="modal" data-bs-target="#thisRecipe">
         <img class="img-fluid" :src="recipe.img" alt="{{ recipe.title }}">
         <div class="card-body">
-            <div>
-                <h2>{{ recipe.title }}</h2>
+            <div class="pt-2 pb-2 d-flex">
+                <div class="">
+                    <h2>{{ recipe.title }}</h2>
+                </div>
+                <div class="flyHigh">
+                    <button @click="favoriteRecipe(recipe.id)" class="btn btn-outline-warning">
+                        <i class="mdi mdi-star fs-4"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -42,4 +48,8 @@ export default {
 </script>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.flyHigh {
+    transform: translateY();
+}
+</style>

@@ -19,8 +19,15 @@
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Category</label>
-                <input type="text" class="form-control" v-model="editable.category" name="category" id=""
-                    aria-describedby="helpId" placeholder="">
+                <!-- <input type="text" class="form-control" v-model="editable.category" name="category" id=""
+                    aria-describedby="helpId" placeholder=""> -->
+                <select v-model="editable.category" name="category" id="">
+                    <option value="Lunch" selected>Lunch</option>
+                    <option value="American">American</option>
+                    <option value="Mexican">Mexican</option>
+                    <option value="Italian">Italian</option>
+                    <option value="German">German</option>
+                </select>
             </div>
 
             <button class="btn btn-success" data-bs-dismiss="modal">Get Cooking!</button>
