@@ -27,10 +27,10 @@
                         <button @click="openEditor()" class="btn btn-success"><i class="mdi mdi-pen"></i></button>
                     </div>
                     <div class="p-2">
-                        <form @submit.prevent="editRecipe(recipe.id)">
+                        <form @submit.prevent="editRecipe(recipe.id)" v-if="edit">
                             <textarea v-model="editable.instructions" class="rounded-pill" type="text"
                                 id="instructions"></textarea>
-                            <button @click="closeEditor()" type="submit" class="btn btn-success-outline"><i
+                            <button type="submit" class="btn btn-success-outline"><i
                                     class="mdi mdi-check-outline"></i></button>
                         </form>
                     </div>
@@ -38,7 +38,7 @@
                 <div>
                     <h3>Ingredients</h3>
                     <div v-if="account.id == recipe.creatorId">
-                        <form @submit.prevent="addIngredients()">
+                        <form @submit.prevent="addIngredients(recipe.id)">
                             <input v-model="editable.name" class="p-1 m-1 rounded-pill" type="text"
                                 title="Name of Ingredient" placeholder="Name of Ingredient">
                             <input v-model="editable.quantity" class="p-1 m-1 rounded-pill" type="text"
@@ -55,6 +55,10 @@
                                     <p>{{ i.quantity }}</p>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <button @click="deleteIngredient(i.id)" class="btn btn-outline"><i
+                                    class="text-danger mdi mdi-delete"></i></button>
                         </div>
                     </div>
                 </div>
@@ -87,6 +91,7 @@ export default {
             recipe: computed(() => AppState.recipe),
             ingredients: computed(() => AppState.ingredients),
             account: computed(() => AppState.account),
+            edit: computed(() => AppState.editMyRecipe),
             async favoriteRecipe(recipeId) {
                 try {
                     await recipesService.favoriteRecipe(recipeId)
@@ -102,6 +107,7 @@ export default {
                     await recipesService.editRecipe(recipeId, editData)
                     Pop.success('Edited Successfully')
                     editable.value = {}
+                    AppState.editMyRecipe = false
                 } catch (error) {
                     logger.error(error.message)
                 }
@@ -111,14 +117,24 @@ export default {
                 AppState.editMyRecipe = true
                 logger.log(AppState.editMyRecipe)
             },
-            closeEditor() {
-                AppState.editMyRecipe = false
-                logger.log(AppState.editMyRecipe)
+
+            async addIngredients(recipeId) {
+                try {
+                    const ingData = editable.value
+                    ingData.recipeId = recipeId
+                    await ingredientsService.addIngredients(ingData)
+                    Pop.success("Added New Ingredient!")
+                    editable.value = {}
+                } catch (error) {
+                    logger.error(error.message)
+                }
             },
 
-            async addIngredients() {
+            async deleteIngredient(ingId) {
                 try {
-
+                    if (await Pop.confirm("You cant undo this exile")) {
+                        await ingredientsService.deleteIngredient(ingId)
+                    }
                 } catch (error) {
                     logger.error(error.message)
                 }
