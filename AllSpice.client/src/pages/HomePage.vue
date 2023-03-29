@@ -50,6 +50,7 @@ export default {
         Pop.error(error.message)
       }
     }
+
     onMounted(() => {
       getRecipes()
     })

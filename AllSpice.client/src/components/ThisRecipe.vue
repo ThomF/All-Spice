@@ -25,7 +25,16 @@
                 </div>
                 <div>
                     <h3>Ingredients</h3>
-                    ingredients here
+                    <div v-for="i in ingredients">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <p>{{ i.name }}</p>
+                                    <p>{{ i.quantity }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -37,15 +46,22 @@
 
 
 <script>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
 import { recipesService } from '../services/RecipesService';
+import { ingredientsService } from '../services/IngredientsService';
+import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
 
 export default {
     setup() {
+
+        onMounted(() => {
+            // getIngredients()
+        })
         return {
             recipe: computed(() => AppState.recipe),
+            ingredients: computed(() => AppState.ingredients),
             async favoriteRecipe(recipeId) {
                 try {
                     await recipesService.favoriteRecipe(recipeId)
