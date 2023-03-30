@@ -1,7 +1,7 @@
 <template>
-    <div @click="setActiveRecipe(), getIngredients()" class="card" data-bs-toggle="modal" data-bs-target="#thisRecipe">
-        <img class="img-fluid" :src="recipe.img" alt="{{ recipe.title }}">
-        <div class="card-body">
+    <div @click="setActiveRecipe(), getIngredients()" class="" data-bs-toggle="modal" data-bs-target="#thisRecipe">
+        <!-- <img class="img-fluid" :src="recipe.img" alt="{{ recipe.title }}"> -->
+        <div class="bg-rimg">
             <div class="pt-2 pb-2 d-flex">
                 <div class="">
                     <h2>{{ recipe.title }}</h2>
@@ -33,6 +33,7 @@ export default {
         return {
             account: computed(() => AppState.account),
             recipes: computed(() => AppState.recipe),
+            recipeImg: computed(() => `url("${props.recipe?.img}")`),
             setActiveRecipe() {
                 recipesService.setActiveRecipe(props.recipe)
             },
@@ -49,9 +50,9 @@ export default {
 
 
 <style lang="scss" scoped>
-.flyHigh {
-    transform: translateY();
-}
+// .flyHigh {
+//     transform: translateY();
+// }
 
 .frosted-card-title {
     width: 15em;
@@ -70,5 +71,12 @@ export default {
     background: inherit;
     backdrop-filter: blur(50px);
     text-shadow: 1px 1px 2px black;
+}
+
+.bg-rimg {
+    background-image: v-bind(recipeImg);
+    background-size: cover;
+    position: center;
+    height: 50vh;
 }
 </style>
