@@ -16,12 +16,16 @@
     <!-- <img class="banner-img"
     src="https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash.jpg?ssl=1"
     alt=""> -->
+
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
 
       </ul>
+
       <!-- LOGIN COMPONENT HERE -->
-      <Login />
+      <div class="upitty">
+        <Login />
+      </div>
     </div>
   </nav>
   <div class="container">
@@ -35,17 +39,26 @@
       <div class="col-4 buttons">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
           <label class="btn btn-secondary active">
-            <input type="radio" @click="changeFilter(0)" name="options" id="option1" autocomplete="off" checked> Home Page
+            <input type="radio" class="input-btn" @click="changeFilter(0)" name="options" id="option1" autocomplete="off"
+              checked> Home Page
           </label>
           <label class="btn btn-primary">
-            <input type="radio" @click="changeFilter(1)" name="options" id="option2" autocomplete="off"> My Recipes
+            <input type="radio" class="input-btn" @click="changeFilter(1)" name="options" id="option2" autocomplete="off">
+            My Recipes
           </label>
           <label class="btn btn-secondary">
-            <input type="radio" @click="changeFilter(2)" name="options" id="option3" autocomplete="off"> My Favorites
+            <input type="radio" class="input-btn" @click="changeFilter(2)" name="options" id="option3" autocomplete="off">
+            My Favorites
           </label>
         </div>
       </div>
-      <!-- <div class="col-4"></div> -->
+      <div class="col-4">
+        <div>
+          <label for="search">Search</label>
+          <input v-model="editable.search" @input="searchCategories()" type="text" id="search" class="form-control"
+            aria-describedby="search" name="body">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -57,19 +70,20 @@ import { logger } from '../utils/Logger';
 import Login from './Login.vue'
 export default {
   setup() {
-    const filterRecipe = ref(0)
+    // const filterRecipe = ref(0)
+    const editable = ref({
+      search: ""
+    })
+    function searchCategories() {
+      setTimeout(() => {
+        AppState.recipes = AppState.allRecipes.filter(r => r.category.toLowerCase().includes(editable.value.search.toLowerCase()))
+      }, 300)
+      if (editable.value.search == '') { AppState.recipes == AppState.allRecipes, logger.log("filtering") }
+    }
     return {
-      // recipes: computed(() => {
-      //   if (!filterRecipe.value) {
-      //     let filter = AppState.recipes
-      //     return filter
-      //   } else if (filterRecipe.value == 1) {
-      //     let filter = AppState.recipes.filter(r => r.creatorId == AppState.account.id)
-      //     return filter
-      //   } else {
-      //     return AppState.recipes.filter(r => r.favoriteId != 0)
-      //   }
-      // }),
+      recipes: computed(() => AppState.allRecipes),
+      editable,
+      searchCategories,
       changeFilter(category) {
         // filterRecipe.value = category
         AppState.filter = category
@@ -117,7 +131,11 @@ a:hover {
   background-image: url(https://i0.wp.com/www.faithanddoubt.com/wp-content/uploads/hossein-farahani-pqJ21tErTgI-unsplash-scaled.jpg?ssl=1);
 }
 
-input {
+.input-btn {
   display: none;
+}
+
+.upitty {
+  transform: translateY(-100px);
 }
 </style>

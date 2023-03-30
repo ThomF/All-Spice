@@ -52,4 +52,23 @@ export default {
 .flyHigh {
     transform: translateY();
 }
+
+.frosted-card-title {
+    width: 15em;
+    transform: translateY(-300%);
+    box-shadow: 0 0 5px 0;
+    background: inherit;
+    backdrop-filter: blur(50px);
+    text-shadow: 1px 1px 2px black;
+}
+
+.frosted-card-cat {
+    width: 8em;
+    content: object-fit;
+    transform: translateY(-22em);
+    box-shadow: 0 0 5px 0;
+    background: inherit;
+    backdrop-filter: blur(50px);
+    text-shadow: 1px 1px 2px black;
+}
 </style>
